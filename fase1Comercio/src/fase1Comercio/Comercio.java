@@ -21,7 +21,7 @@ public class Comercio {
 	}
 	private Produtos verificarProduto(int codido) {
 		for (Produtos produto : produtos) {
-			if (produto.codigos.equals(codido)) {
+			if (produto.codigos == codido) {
 				return produto;
 			}
 		}
@@ -35,8 +35,8 @@ public class Comercio {
 		System.out.print("Digite o codigo do produto: ");
 		int codigo = Integer.parseInt(sc.nextLine());
 		for (Produtos produto : produtos) {
-			if(produto.codigos.equals(codigo)) {
-				while(produto.codigos.equals(codigo)) {
+			if(produto.codigos == codigo) {
+				while(produto.codigos == codigo) {
 					System.out.print("Código já em uso. Por favor, digite outro: ");
 					codigo = Integer.parseInt(sc.nextLine());
 				}
@@ -56,26 +56,62 @@ public class Comercio {
 	}
 	
 	public void adicionaEstoque() {
-		System.out.println("Digite o código do produto: ");
+		System.out.print("Digite o código do produto: ");
 		int codigo = Integer.parseInt(sc.nextLine());
 		Produtos produto = verificarProduto(codigo);
 		if(produto != null) {
-			System.out.println("Quanto será adicionado ao estoque? ");
+			System.out.print("Quanto será adicionado ao estoque? ");
 			int quantidade = Integer.parseInt(sc.nextLine());
 			produto.estoque += quantidade;
+			System.out.println("O estoque do produto: " + produto.nomeProduto + ". Agora é: " + produto.estoque);
 		}
 		else {
 			System.out.println("Produto não encontrado!");
 		}
 	}
 	
+	public void removerProduto() {
+		System.out.print("Digite o código do produto: ");
+		int codigo = Integer.parseInt(sc.nextLine());
+		Produtos produto = verificarProduto(codigo);
+		if (produto != null) {
+			if (produto.estoque > 0) {
+				System.out.print("Deseja remover este produto? (S/N): ");
+				String resposta = sc.nextLine();
+				if (resposta.equalsIgnoreCase("S")) {
+					produtos.remove(produto);
+					System.out.println("Produto removido com sucesso!");
+				}
+			}
+			else {
+				produtos.remove(produto);
+				System.out.println("Produto removido com sucesso!");
+			}
+		}
+		else {
+			System.out.println("Produto não encontrado! ");
+		}
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void venderProduto() {
+		System.out.print("Digite o código do produto que deseja vender: ");
+		int coidgo = Integer.parseInt(sc.nextLine());
+		Produtos produto = verificarProduto(coidgo);
+		if (produto != null) {
+			System.out.print("Quantas unidades serão vendidas? ");
+			int quantidadeASerVendida = Integer.parseInt(sc.nextLine());
+			int quantidadeAtual = produto.estoque;
+			if(quantidadeASerVendida < quantidadeAtual) {
+				int total = quantidadeAtual - quantidadeASerVendida;
+				produto.estoque = total;
+				System.out.println("Venda realizada. Estoque do produto " + produto.nomeProduto + ": " + produto.estoque);
+			}
+			else {
+				System.out.println("Não há estoque suficiente! ");
+			}
+		}
+		else {
+			System.out.println("Produto não encontrado! ");
+		}
+	}
 }

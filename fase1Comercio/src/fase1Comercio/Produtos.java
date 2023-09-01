@@ -2,7 +2,7 @@ package fase1Comercio;
 
 public class Produtos {
 	String nomeProduto;
-	Integer codigos;
+	int codigos;
 	int estoque;
 	
 	Produtos(String nomeProduto, int codigos) {

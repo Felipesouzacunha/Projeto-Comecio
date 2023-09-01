@@ -25,10 +25,19 @@ public class Main {
 				comercio.cadastrarProduto();
 			}
 			else if(opcao == 3) {
-				
+				comercio.adicionaEstoque();
+			}
+			else if(opcao == 4) {
+				comercio.removerProduto();
+			}
+			else if (opcao == 5) {
+				comercio.venderProduto();
+			}
+			else if (opcao > 6) {
+				System.out.println("Opção inválida! ");
 			}
 		}
+		System.out.println("Saindo do programa! ");
 		sc.close();
 	}
-
 }
